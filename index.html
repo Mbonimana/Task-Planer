@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Study Planner</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__inner">
+      <h1 class="hero__title">Smart Study Planner</h1>
+      <p class="hero__subtitle">Organize your study tasks, track progress, and achieve your academic goals</p>
+      <div class="stats" role="list" aria-label="Summary stats">
+        <div class="stat" role="listitem">
+            <div class="stat__icon">📚
+        </div>
+        <div class="stat__value" id="statTotal">0</div>
+        <div class="stat__label">Total Tasks</div>
+    </div>
+        <div class="stat" role="listitem"><div class="stat__icon">✅</div><div class="stat__value" id="statCompleted">0</div><div class="stat__label">Completed</div></div>
+        <div class="stat" role="listitem"><div class="stat__icon">🕒</div><div class="stat__value" id="statToday">0</div><div class="stat__label">Due Today</div></div>
+        <div class="stat" role="listitem"><div class="stat__icon">⚠️</div><div class="stat__value" id="statOverdue">0</div><div class="stat__label">Overdue</div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="toolbar">
+      <div class="search">
+        <label for="globalSearch" class="visually-hidden">Search tasks and notes</label>
+        <input id="globalSearch" type="search" placeholder="Search tasks and notes..." />
+      </div>
+      <div class="filters">
+        <button class="chip is-active" data-filter="all">All Tasks</button>
+        <button class="chip" data-filter="pending">Pending</button>
+        <button class="chip" data-filter="completed">Completed</button>
+        <button class="chip" data-filter="overdue">Overdue</button>
+        <button class="chip" data-filter="today">Due Today</button>
+        <div class="sort">
+          <label for="sortBy" class="visually-hidden">Sort</label>
+          <select id="sortBy" aria-label="Sort tasks">
+            <div class="select">
+            <option value="deadline">Deadline</option>
+            <option value="priority">Priority</option>
+            <option value="created">Created</option>
+            <option value="title">Title</option>
+            </div>
+            
+          </select>
+        </div>
+        <div class="toolbar__cta">
+          <button id="addTaskBtn" class="btn primary">+ Add Task</button>
+          <button id="addNoteBtn" class="btn">+ New Note</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel" aria-labelledby="tasksHeading">
+        <div class="panel__header">
+          <h2 id="tasksHeading">Study Tasks</h2>
+          <span class="muted" id="tasksCount">0 tasks</span>
+        </div>
+        <div id="tasksEmpty" class="empty">
+          <div class="empty__icon">📖</div>
+          <div class="empty__title">No tasks found</div>
+          <p>Create your first study task to get started!</p>
+          <button class="btn primary" id="firstTaskBtn">Add Your First Task</button>
+        </div>
+        <ul id="tasksList" class="items" aria-live="polite"></ul>
+      </div>
+
+      <div class="panel" aria-labelledby="notesHeading">
+        <div class="panel__header">
+          <h2 id="notesHeading">Study Notes</h2>
+        </div>
+        <div class="search within">
+          <label for="noteSearch" class="visually-hidden">Search notes</label>
+          <input id="noteSearch" type="search" placeholder="Search notes..." />
+        </div>
+        <div id="notesEmpty" class="empty">
+          <div class="empty__icon">🗒️</div>
+          <div class="empty__title">No notes yet</div>
+          <p>Create your first study note!</p>
+          <button class="btn" id="firstNoteBtn">Add Note</button>
+        </div>
+        <ul id="notesList" class="notes" aria-live="polite"></ul>
+        </div>
+    </section>
+  </main>
+
+  <dialog id="taskDialog" class="modal">
+    <form id="taskForm" method="dialog">
+      <h3 id="taskDialogTitle">Add Task</h3>
+      <div class="field">
+        <label for="taskTitle">Title</label>
+        <input id="taskTitle" name="title" required maxlength="120" />
+      </div>
+      <div class="field">
+        <label for="taskDue">Due date</label>
+        <input id="taskDue" name="due" type="date" />
+      </div>
+      <div class="field">
+        <label for="taskPriority">Priority</label>
+        <select id="taskPriority" name="priority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="taskNotes">Notes</label>
+        <textarea id="taskNotes" name="notes" rows="3" placeholder="Details or links..."></textarea>
+      </div>
+      <menu class="modal__actions">
+        <button type="reset" class="btn ghost" value="cancel">Cancel</button>
+        <button type="submit" class="btn primary">Save Task</button>
+      </menu>
+      <input type="hidden" id="taskId" name="id" />
+    </form>
+  </dialog>
+
+  <dialog id="noteDialog" class="modal">
+    <form id="noteForm" method="dialog">
+      <h3 id="noteDialogTitle">New Note</h3>
+      <div class="field">
+        <label for="noteTitle">Title</label>
+        <input id="noteTitle" name="title" required maxlength="120" />
+      </div>
+      <div class="field">
+        <label for="noteContent">Content</label>
+        <textarea id="noteContent" name="content" rows="6" placeholder="Write your study note..."></textarea>
+      </div>
+      <menu class="modal__actions">
+        <button type="reset" class="btn ghost" value="cancel">Cancel</button>
+        <button type="submit" class="btn primary">Save Note</button>
+      </menu>
+      <input type="hidden" id="noteId" name="id" />
+    </form>
+  </dialog>
+
+  <template id="taskItemTemplate">
+    <li class="item">
+      <label class="item__main">
+        <input type="checkbox" class="item__check" />
+        <span class="item__title"></span>
+      </label>
+      <div class="item__meta">
+        <span class="badge deadline"></span>
+        <span class="badge created"></span>
+        <span class="badge priority"></span>
+      </div>
+      <div class="item__actions">
+        <button class="icon-btn edit" title="Edit">✏️</button>
+        <button class="icon-btn delete" title="Delete">🗑️</button>
+      </div>
+    </li>
+  </template>
+
+  <template id="noteItemTemplate">
+    <li class="note">
+      <div class="note__header">
+        <h4 class="note__title"></h4>
+        <div class="note__actions">
+          <button class="icon-btn edit" title="Edit">✏️</button>
+          <button class="icon-btn delete" title="Delete">🗑️</button>
+        </div>
+      </div>
+      <div class="note__content"></div>
+      <div class="note__footer muted"></div>
+    </li>
+  </template>
+
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
+
