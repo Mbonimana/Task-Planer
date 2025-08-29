@@ -1,0 +1,125 @@
+:root {
+  --bg: #f6f8ff;
+  --card: #e9f1ff;
+  --accent: #4b4bff;
+  --text: #171717;
+  --muted: #bdbdbd;
+  --chip: #e9e9ee;
+  --warning: #f7c948;
+  --success: #24a148;
+  --danger: #e01e37;
+  --shadow: 0 8px 24px rgba(0,0,0,.08);
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: radial-gradient(1200px 600px at 50% -200px, rgba(0,0,0,.04), transparent 60%), #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px;
+}
+.brand { font-weight: 700; color: var(--accent); font-size: 26px; }
+.auth-actions { display: flex; gap: 12px; }
+
+.btn { 
+  border: none; cursor: pointer; padding: 10px 18px; border-radius: 12px; font-weight: 600; 
+}
+.btn-sm { padding: 8px 12px; font-size: 14px; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-secondary { background: #f2f2ff; color: var(--accent); }
+.btn-muted { background: #d9d9dd; color: #444; }
+.icon-btn { background: transparent; border: none; cursor: pointer; }
+
+/* Make the header board action buttons small and smart */
+#addTaskBtn,
+#addNoteBtn { 
+  padding: 6px 12px; 
+  font-size: 14px; 
+  border-radius: 10px; 
+  line-height: 1; 
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 16px 24px; flex: 1; display: flex; flex-direction: column; }
+
+.hero { text-align: center; margin-top: 6px; }
+.hero h1 { font-size: 36px; margin: 10px 0 4px; }
+.hero p { font-size: 20px; color: #333; margin: 0 0 18px; }
+
+.dashboard { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: stretch; flex: 1; }
+
+.stats { background: #fff; border-radius: 18px; padding: 18px; box-shadow: var(--shadow); }
+.stat { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-radius: 12px; margin-bottom: 16px; color: #fff; font-size: 20px; font-weight: 700; }
+.stat span { font-weight: 600; }
+.stat b { font-size: 22px; }
+.stat-total { background: #3b34ff; }
+.stat-completed { background: #1e9e43; }
+.stat-today { background: #f0b521; }
+.stat-overdue { background: #db1f2a; }
+.export-actions { display: flex; gap: 10px; margin-top: 8px; }
+
+.boards { display: grid; grid-template-columns: 1fr 420px; gap: 24px; align-items: stretch; }
+.card { background: var(--card); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); height: 100%; }
+.card { display: flex; flex-direction: column; }
+.card-header { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.card-header h2 { margin: 6px 0; font-size: 22px; text-align: center; }
+.board-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.board-actions .ba-left { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.board-actions .ba-right { display: flex; align-items: center; }
+
+.input { width: 100%; padding: 12px 14px; border: 1px solid #e1e1e6; border-radius: 12px; outline: none; background: #fff; }
+.input.search { width: 260px; }
+.textarea { resize: vertical; }
+
+.filters { display: flex; gap: 10px; }
+.chip { background: #d9d9df; border: none; padding: 8px 12px; border-radius: 10px; color: #333; cursor: pointer; }
+.chip.active { background: var(--accent); color: #fff; }
+
+.task-list { list-style: none; padding: 0; margin: 10px 0 0; max-height: 100%; overflow: auto; }
+.task-item { background: #fff; border-radius: 14px; padding: 12px 14px; display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 12px; }
+.task-list .task-item + .task-item { margin-top: 10px; }
+.task-item[hidden] { display: none; }
+.task-title { font-weight: 600; }
+.task-meta { display: flex; align-items: center; gap: 12px; font-size: 12px; color: #666; }
+.priority.high { color: #e11; font-weight: 700; }
+.due-warning { color: #b98500; background: #fff4cf; padding: 2px 8px; border-radius: 8px; }
+.created { opacity: .9; }
+
+.checkbox { display: inline-flex; align-items: center; }
+.checkbox input { display: none; }
+.checkbox span { width: 18px; height: 18px; display: inline-block; border: 2px solid #9dd19a; border-radius: 4px; background: #f3fff3; position: relative; }
+.checkbox input:checked + span { background: #eaffea; }
+.checkbox input:checked + span:after { content: ""; position: absolute; width: 10px; height: 10px; left: 2px; top: 2px; background: #22c55e; border-radius: 2px; }
+
+.notes-board .note-card { background: #fff; border-radius: 14px; padding: 16px; margin-top: 12px; }
+.note-card h3 { margin: 0 0 8px; font-size: 16px; font-weight: 700; }
+.note-card p { margin: 0; font-size: 13px; color: #333; line-height: 1.5; }
+
+.app-footer { text-align: center; padding: 18px; color: #333; margin-top: auto; }
+
+/* Modals */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,.25); display: none; align-items: center; justify-content: center; padding: 20px; }
+.modal[aria-hidden="false"] { display: flex; }
+.modal-dialog { width: 420px; background: var(--card); border-radius: 14px; box-shadow: var(--shadow); padding: 14px; }
+.modal-header { font-size: 22px; font-weight: 700; padding: 10px; }
+.modal-body { display: grid; gap: 12px; padding: 8px 10px 4px; }
+.modal-body label { display: grid; gap: 6px; font-size: 14px; }
+.modal-footer { display: flex; gap: 12px; justify-content: flex-end; padding: 12px 10px 8px; }
+
+@media (max-width: 1000px) {
+  .dashboard { grid-template-columns: 1fr; }
+  .boards { grid-template-columns: 1fr; }
+  .card-header { flex-wrap: wrap; }
+}
+

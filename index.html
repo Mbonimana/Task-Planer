@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Study Planer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">Smart Study Planer</div>
+    <div class="auth-actions">
+      <button class="btn btn-secondary" id="loginBtn">Login</button>
+      <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Smart Study Planer</h1>
+      <p>Organize your study tasks, track progress, and achieve your academic goals</p>
+    </section>
+
+    <section class="dashboard">
+      <aside class="stats">
+        <div class="stat stat-total"><span>Total Tasks:</span><b id="statTotal">10</b></div>
+        <div class="stat stat-completed"><span>Completed:</span><b id="statCompleted">10</b></div>
+        <div class="stat stat-today"><span>Due Today:</span><b id="statToday">10</b></div>
+        <div class="stat stat-overdue"><span>Overdue:</span><b id="statOverdue">10</b></div>
+        <div class="export-actions">
+          <button class="btn btn-primary btn-sm" id="exportJson">Export Json</button>
+          <button class="btn btn-primary btn-sm" id="exportCsv">Export Cvs</button>
+        </div>
+      </aside>
+
+      <section class="boards">
+        <div class="tasks-board card">
+          <div class="card-header">
+            <h2>Study Tasks</h2>
+            <div class="board-actions">
+              <div class="ba-left">
+                <input type="text" class="input search" placeholder="Search Task ........">
+                <div class="filters">
+                  <button class="chip">Completed</button>
+                  <button class="chip">Pending</button>
+                  <button class="chip">Overdue</button>
+                </div>
+              </div>
+              <div class="ba-right">
+                <button class="btn btn-primary" id="addTaskBtn">+ AddTask</button>
+              </div>
+            </div>
+          </div>
+          <ul class="task-list">
+            <li class="task-item">
+              <label class="checkbox">
+                <input type="checkbox" checked>
+                <span></span>
+              </label>
+              <div class="task-title">Study CSS</div>
+              <div class="task-meta">
+                <span class="due due-warning">Due tomorrow</span>
+                <span class="created">Created 28/03/2026</span>
+                <span class="priority high">High Priority</span>
+                <span class="icons">
+                  <button class="icon-btn action-edit" title="Edit">✏️</button>
+                  <button class="icon-btn action-dup" title="Duplicate">📄</button>
+                  <button class="icon-btn action-del" title="Delete">🗑️</button>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="notes-board card">
+          <div class="card-header">
+            <h2>Notes</h2>
+            <div class="board-actions">
+              <div class="ba-left">
+                <input type="text" class="input search" placeholder="Search Note ........">
+              </div>
+              <div class="ba-right">
+                <button class="btn btn-primary" id="addNoteBtn">+ New note</button>
+              </div>
+            </div>
+          </div>
+          <div class="note-card">
+            <h3>KLab Meeting on 20/08/2025</h3>
+            <p>Today, I will be attending a meeting at TechUpSkill in kLab, Kigali. The purpose of this meeting is to introduce myself to the TechUpSkill team and learn more about the programs, workshops, and events they are running. I want to understand how their initiatives can support my personal and professional growth, especially in the areas of software development, technology, and career advancement.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="app-footer">Developed by Manasseh 2025</footer>
+
+  <!-- Modals -->
+  <div class="modal" id="taskModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">Add Task</div>
+      <div class="modal-body">
+        <label>Title
+          <input id="taskTitle" class="input" type="text" placeholder="">
+        </label>
+        <label>Due Date
+          <input id="taskDue" class="input" type="text" placeholder="MM/DD/YYYY">
+        </label>
+        <label>Priority
+          <input id="taskPriority" class="input" type="text" placeholder="">
+        </label>
+        <label>Notes:
+          <input id="taskNotes" class="input" type="text" placeholder="">
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-muted close-modal">Cancel</button>
+        <button class="btn btn-primary" id="saveTask">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="noteModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">Add New note</div>
+      <div class="modal-body">
+        <label>Title
+          <input id="noteTitle" class="input" type="text" placeholder="">
+        </label>
+        <label>Notes:
+          <textarea id="noteBody" class="input textarea" rows="8" placeholder=""></textarea>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-muted close-modal">Cancel</button>
+        <button class="btn btn-primary" id="saveNote">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
